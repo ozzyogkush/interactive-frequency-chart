@@ -1,0 +1,291 @@
+<html>
+
+<head>
+<title>Interactive Frequency Chart - Independent Recording Network</title>
+</head>
+
+<body bgcolor="#000000" text="#00C0C0" link="#FFCC99" vlink="#FFCC99" alink="#FFCC99" topmargin="0" leftmargin="0" rightmargin="0" onLoad="window.loaded = true;">
+
+<script language="javascript">
+<!--
+
+//*******************************************
+//********   SET BROWSER VERSION   **********
+//*******************************************
+ver=parseInt(navigator.appVersion);
+ie4=(ver>3 && navigator.appName!="Netscape")?1:0;
+ns4=(ver>3 && navigator.appName=="Netscape")?1:0;
+
+
+//*******************************************
+//**********   SET IMAGE ARRAYS   ***********
+//*******************************************
+
+//Populate "Ear Sensitivity" overlay image array
+ear_overlay = new Array(6);
+ear_overlay[0] = new Image();
+ear_overlay[0].src = "images/ear_blank.gif";
+ear_overlay[1] = new Image();
+ear_overlay[1].src = "images/ear_sub_bass.gif";
+ear_overlay[2] = new Image();
+ear_overlay[2].src = "images/ear_bass.gif";
+ear_overlay[3] = new Image();
+ear_overlay[3].src = "images/ear_midrange.gif";
+ear_overlay[4] = new Image();
+ear_overlay[4].src = "images/ear_high_mids.gif";
+ear_overlay[5] = new Image();
+ear_overlay[5].src = "images/ear_high_freqs.gif";
+
+//Populate "Spectrum Data" image array
+spec_data = new Array(6);
+spec_data[0] = new Image();
+spec_data[0].src = "images/spec_blank.gif";
+spec_data[1] = new Image();
+spec_data[1].src = "images/spec_sub_bass.gif";
+spec_data[2] = new Image();
+spec_data[2].src = "images/spec_bass.gif";
+spec_data[3] = new Image();
+spec_data[3].src = "images/spec_midrange.gif";
+spec_data[4] = new Image();
+spec_data[4].src = "images/spec_high_mids.gif";
+spec_data[5] = new Image();
+spec_data[5].src = "images/spec_high_freqs.gif";
+
+//Populate "Instrument Data" image array
+inst_data = new Array(6);
+inst_data[0] = new Image();
+inst_data[0].src = "images/inst_blank.jpg";
+inst_data[1] = new Image();
+inst_data[1].src = "images/inst_male_vocal.jpg";
+inst_data[2] = new Image();
+inst_data[2].src = "images/inst_female_vocal.jpg";
+inst_data[3] = new Image();
+inst_data[3].src = "images/inst_kick.jpg";
+inst_data[4] = new Image();
+inst_data[4].src = "images/inst_tympani.jpg";
+inst_data[5] = new Image();
+inst_data[5].src = "images/inst_toms.jpg";
+inst_data[6] = new Image();
+inst_data[6].src = "images/inst_snare.jpg";
+inst_data[7] = new Image();
+inst_data[7].src = "images/inst_congas.jpg";
+inst_data[8] = new Image();
+inst_data[8].src = "images/inst_cymbals.jpg";
+inst_data[9] = new Image();
+inst_data[9].src = "images/inst_tuba.jpg";
+inst_data[10] = new Image();
+inst_data[10].src = "images/inst_french_horn.jpg";
+inst_data[11] = new Image();
+inst_data[11].src = "images/inst_bass_trombone.jpg";
+inst_data[12] = new Image();
+inst_data[12].src = "images/inst_tenor_trombone.jpg";
+inst_data[13] = new Image();
+inst_data[13].src = "images/inst_trumpet.jpg";
+inst_data[14] = new Image();
+inst_data[14].src = "images/inst_contrabassoon.jpg";
+inst_data[15] = new Image();
+inst_data[15].src = "images/inst_bassoon.jpg";
+inst_data[16] = new Image();
+inst_data[16].src = "images/inst_tenor_sax.jpg";
+inst_data[17] = new Image();
+inst_data[17].src = "images/inst_alto_sax.jpg";
+inst_data[18] = new Image();
+inst_data[18].src = "images/inst_clarinet.jpg";
+inst_data[19] = new Image();
+inst_data[19].src = "images/inst_oboe.jpg";
+inst_data[20] = new Image();
+inst_data[20].src = "images/inst_flute.jpg";
+inst_data[21] = new Image();
+inst_data[21].src = "images/inst_piccolo.jpg";
+inst_data[22] = new Image();
+inst_data[22].src = "images/inst_bass.jpg";
+inst_data[23] = new Image();
+inst_data[23].src = "images/inst_cello.jpg";
+inst_data[24] = new Image();
+inst_data[24].src = "images/inst_viola.jpg";
+inst_data[25] = new Image();
+inst_data[25].src = "images/inst_violin.jpg";
+inst_data[26] = new Image();
+inst_data[26].src = "images/inst_guitar.jpg";
+inst_data[27] = new Image();
+inst_data[27].src = "images/inst_harp.jpg";
+inst_data[28] = new Image();
+inst_data[28].src = "images/inst_pipe_organ.jpg";
+inst_data[29] = new Image();
+inst_data[29].src = "images/inst_piano.jpg";
+inst_data[30] = new Image();
+inst_data[30].src = "images/inst_eq.jpg";
+
+
+//*******************************************
+//******   SET INTERACTIVE TRACKING   *******
+//*******************************************
+
+var cursor_position;
+
+// FUNCTION: interactive_tracker
+// Dynamic display via cursor tracking
+function interactive_tracker(e)
+{
+  // Don't run unless page is ready
+  if (window.loaded != true) return;
+
+//// Get cursor position by browser type:
+  // If browser is IE version 4 or greater
+  if (ie4) {
+    // Get position
+    cursor_position = event.clientX;
+    
+  // else if other browser
+  } else {
+    // Get position
+    cursor_position = e.clientX;
+    // Adjust for border offset
+    cursor_position = cursor_position + 2;
+  }
+  
+////Update info displays based upon cursor position
+   // Off chart
+   if (cursor_position < 5 || cursor_position > 627) {
+     document.earcell.src = ear_overlay[0].src;
+     document.speccell.src = spec_data[0].src;
+   }  
+   // Sub Bass
+   if (cursor_position > 4 && cursor_position < 138) {
+     //Ear Sensitivity
+     document.earcell.src = ear_overlay[1].src;
+     document.speccell.src = spec_data[1].src;
+   }  
+   // Bass
+   if (cursor_position >137 && cursor_position < 255) {
+     document.earcell.src = ear_overlay[2].src;
+     document.speccell.src = spec_data[2].src;
+   }  
+   // Midrange
+   if (cursor_position > 254 && cursor_position < 428) {
+     document.earcell.src = ear_overlay[3].src;
+     document.speccell.src = spec_data[3].src;
+   }  
+   // High Mids
+   if (cursor_position > 427 && cursor_position < 518) {
+     document.earcell.src = ear_overlay[4].src;
+     document.speccell.src = spec_data[4].src;
+   }  
+   // High Freqs
+   if (cursor_position > 517 && cursor_position < 628) {
+     document.earcell.src = ear_overlay[5].src;
+     document.speccell.src = spec_data[5].src;
+   }  
+
+}
+
+//Launch interactive tracking
+document.onmousemove = interactive_tracker;
+ 
+ 
+//*******************************************
+//****   DISPLAY INSTRUMENT MOUSEOVERS   ****
+//*******************************************
+//Display instrument data on chart mouseovers
+//and reset data display on mouse offs
+
+function display_instrument(imagenum)
+{
+  //Don't run unless page is ready
+  if (window.loaded != true) return;
+  
+  //Display/reset instrument data
+  document.instcell.src = inst_data[imagenum].src;
+}
+
+ 
+//******************************************
+//*****  OPEN EAR SENSITIVITY WINDOW   *****
+//******************************************
+//Popup Ear Sensitivity display in child window
+function popup_display(targeturl,displaywidth,displayheight){
+
+  //Don't run unless page is ready
+  if (window.loaded != true) return;
+  
+  //open window
+  result=window.open(targeturl,"","width="+displaywidth+",height="+displayheight+",left=20,top=20");
+
+}
+
+
+//-->
+</script>
+
+<div align="left">
+  <table border="0" cellpadding="0" cellspacing="0" width="800" bgcolor="#000000" align="left" height="700">
+    <tr>
+      <td valign="top" align="left" bgcolor="#000000" width="630" height="700" rowspan="8"><map name="map_inst">
+        <area nohref shape="rect" coords="142, 19, 601, 32" onMouseOver="display_instrument(1)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="200, 32, 601, 46" onMouseOver="display_instrument(2)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="86, 53, 544, 67" onMouseOver="display_instrument(3)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="78, 67, 464, 81" onMouseOver="display_instrument(4)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="109, 81, 537, 95" onMouseOver="display_instrument(5)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="136, 95, 563, 109" onMouseOver="display_instrument(6)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="156, 109, 510, 123" onMouseOver="display_instrument(7)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="163, 123, 598, 137" onMouseOver="display_instrument(8)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="38, 144, 433, 158" onMouseOver="display_instrument(9)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="51, 158, 507, 172" onMouseOver="display_instrument(10)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="31, 172, 559, 186" onMouseOver="display_instrument(11)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="59, 186, 564, 200" onMouseOver="display_instrument(12)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="158, 200, 552, 214" onMouseOver="display_instrument(13)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="60, 222, 579, 236" onMouseOver="display_instrument(14)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="73, 236, 555, 250" onMouseOver="display_instrument(15)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="121, 250, 588, 264" onMouseOver="display_instrument(16)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="142, 264, 588, 278" onMouseOver="display_instrument(17)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="145, 278, 582, 292" onMouseOver="display_instrument(18)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="203, 292, 582, 306" onMouseOver="display_instrument(19)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="215, 306, 575, 320" onMouseOver="display_instrument(20)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="271, 320, 586, 334" onMouseOver="display_instrument(21)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="64, 342, 508, 356" onMouseOver="display_instrument(22)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="103, 356, 540, 370" onMouseOver="display_instrument(23)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="156, 370, 527, 384" onMouseOver="display_instrument(24)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="190, 384, 597, 398" onMouseOver="display_instrument(25)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="116, 398, 507, 412" onMouseOver="display_instrument(26)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="22, 412, 516, 424" onMouseOver="display_instrument(27)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="35, 431, 610, 444" onMouseOver="display_instrument(28)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="20, 463, 595, 512" onMouseOver="display_instrument(29)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="204, 444, 337, 465" onMouseOver="display_instrument(29)" onMouseOut="display_instrument(0)">
+        <area nohref shape="rect" coords="22, 618, 626, 666" onMouseOver="display_instrument(30)" onMouseOut="display_instrument(0)"></map><img border="0" src="images/main_chart.jpg" width="630" height="700" usemap="#map_inst"></td>
+      <td valign="top" align="left" width="170" bgcolor="#000000" height="20" background="images/bkgd_spec_top.jpg" colspan="3"></td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="7" bgcolor="#000000" height="182" background="images/bkgd_spec_side_L.jpg"></td>
+      <td valign="top" align="left" width="156" bgcolor="#000000" height="182"><img name="speccell" border="0" src="images/spec_blank.gif" width="156" height="180"></td>
+      <td valign="top" align="left" width="7" bgcolor="#000000" height="182" background="images/bkgd_spec_side_R.jpg"></td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="170" bgcolor="#000000" height="7" background="images/bkgd_spec_bottom.jpg" colspan="3"></td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="170" height="14" bgcolor="#000000" colspan="3" background="images/bkgd_inst_top.jpg"></td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="7" height="175" bgcolor="#000000" background="images/bkgd_inst_side_L.jpg"></td>
+      <td valign="top" align="left" width="156" height="175" bgcolor="#000000"><img name="instcell" border="0" src="images/inst_blank.jpg" width="156" height="175"></td>
+      <td valign="top" align="left" width="7" height="175" bgcolor="#000000" background="images/bkgd_inst_side_R.jpg"></td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="170" height="7" bgcolor="#000000" colspan="3" background="images/bkgd_inst_bottom.jpg"></td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="170" height="146" background="images/bkgd_ear.jpg" colspan="3"><map name="map_Earchart">
+        <area shape="rect" coords="6, 14, 162, 137" href="javascript:popup_display('ear_sensitivity.htm',640,600);"></map><img name="earcell" border="0" src="images/ear_blank.gif" width="170" height="146" usemap="#map_Earchart"></td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" width="170" height="149" colspan="3"><img border="0" src="images/bkgd_legend.jpg" width="170" height="149" alt="©2006 GJS/Intependent Recording Network - www.independentrecording.net"></td>
+    </tr>
+  </table>
+</div>
+
+
+</body>
+
+</html>
+
+
