@@ -1,0 +1,5 @@
+# Format all files the way we want
+yarn run prettier --write .
+
+# Lint them just to be sure
+yarn lint

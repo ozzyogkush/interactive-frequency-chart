@@ -1,0 +1,8 @@
+# Ignore artifacts:
+build
+coverage
+
+extracted/*
+*.har
+.pnp.*
+yarn.lock

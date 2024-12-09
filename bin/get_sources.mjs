@@ -15,7 +15,12 @@ const processEntry = async entry => {
 
   console.log(`Processing file: '${file}'...`);
   if (![200, 301, 308].includes(status)) {
-    errors.push({ file, originalUrl, redirectURL, error: `Original status is ${status}` });
+    errors.push({
+      file,
+      originalUrl,
+      redirectURL,
+      error: `Original status is ${status}`,
+    });
     return { success, errors };
   }
 
@@ -25,7 +30,11 @@ const processEntry = async entry => {
   try {
     await mkdir(dir.join('/'), { recursive: true });
   } catch (e) {
-    errors.push({ file, originalUrl, error: `failed to create directories: ${e.message}` })
+    errors.push({
+      file,
+      originalUrl,
+      error: `failed to create directories: ${e.message}`,
+    });
     return { success, errors };
   }
 
@@ -39,22 +48,31 @@ const processEntry = async entry => {
       const { body } = await fetch(urlToFetch);
       data = body;
     } catch (e) {
-      errors.push({ file, originalUrl, error: `failed to fetch from original URL: ${e.message}` });
+      errors.push({
+        file,
+        originalUrl,
+        error: `failed to fetch from original URL: ${e.message}`,
+      });
     }
   }
 
   try {
     console.debug('\twriting file...');
     await writeFile(file, data);
-    success.push({ file, originalUrl, message: 'file successfully written' })
+    success.push({ file, originalUrl, message: 'file successfully written' });
   } catch (e) {
-    errors.push({ file, originalUrl, error: `failed to create file: ${e.message}`, data })
+    errors.push({
+      file,
+      originalUrl,
+      error: `failed to create file: ${e.message}`,
+      data,
+    });
   }
 
   return { success, errors };
-}
+};
 
-const dewIt = async (harFile, logLevel = 'info') => {
+const dewIt = async harFile => {
   const summary = {
     success: [],
     errors: [],
@@ -70,8 +88,7 @@ const dewIt = async (harFile, logLevel = 'info') => {
     summary.errors.push(...errors);
   }
   return summary;
-}
-
+};
 
 try {
   const harFileName = 'eq_chart_ff.har';
