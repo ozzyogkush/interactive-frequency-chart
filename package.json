@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint ./",
+    "lint": "yarn run eslint ./",
+    "lint:fix": "yarn run eslint ./ --fix",
+    "lint:diff": "FILES=$(git diff HEAD --name-only --relative ./ | grep -E '\\.[j|mj|cj|t]sx?$' | xargs ls -d 2>/dev/null); echo $FILES; yarn run eslint $FILES",
     "preview": "vite preview",
     "postinstall": "husky",
     "prepack": "pinst --disable",
@@ -28,6 +30,7 @@
     "globals": "15.13.0",
     "husky": "9.1.7",
     "prettier": "3.4.2",
+    "pretty-quick": "4.0.0",
     "typescript": "5.7.2",
     "typescript-eslint": "8.17.0",
     "vite": "6.0.3"

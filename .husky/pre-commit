@@ -1,5 +1,5 @@
 # Format all files the way we want
-yarn run prettier --write .
+yarn run pretty-quick --staged
 
 # Lint them just to be sure
-yarn lint
+yarn run lint:diff
