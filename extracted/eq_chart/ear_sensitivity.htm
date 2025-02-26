@@ -1,0 +1,132 @@
+<html><head>
+
+<title>Interactive Ear Sensitivity Chart - Independent Recording Network</title>
+<style>:is([id*='google_ads_iframe'],[id*='taboola-'],.taboolaHeight,.taboola-placeholder,#top-ad,#credential_picker_container,#credentials-picker-container,#credential_picker_iframe,[id*='google-one-tap-iframe'],#google-one-tap-popup-container,.google-one-tap__module,.google-one-tap-modal-div,#amp_floatingAdDiv,#ez-content-blocker-container) {display:none!important;min-height:0!important;height:0!important;}</style></head>
+
+<body bgcolor="#000000" text="#00C0C0" link="#FFCC99" vlink="#FFCC99" alink="#FFCC99" topmargin="0" leftmargin="0" rightmargin="0" onload="window.loaded = true;">
+
+<script language="javascript">
+<!--
+
+//*******************************************
+//********   SET BROWSER VERSION   **********
+//*******************************************
+ver=parseInt(navigator.appVersion);
+ie4=(ver>3 && navigator.appName!="Netscape")?1:0;
+ns4=(ver>3 && navigator.appName=="Netscape")?1:0;
+
+
+//*******************************************
+//**********   SET IMAGE ARRAYS   ***********
+//*******************************************
+
+//Populate "Sensitivity Caption" image array
+sensitivity_caption = new Array(2);
+sensitivity_caption[0] = new Image();
+sensitivity_caption[0].src = "images/sensitivity_caption_1.jpg";
+sensitivity_caption[1] = new Image();
+sensitivity_caption[1].src = "images/sensitivity_caption_2.jpg";
+
+//Populate "Sensitivity Detail" image array
+sensitivity_detail = new Array(6);
+sensitivity_detail[0] = new Image();
+sensitivity_detail[0].src = "images/sensitivity_detail_blank.jpg";
+sensitivity_detail[1] = new Image();
+sensitivity_detail[1].src = "images/sensitivity_detail_sub_bass.jpg";
+sensitivity_detail[2] = new Image();
+sensitivity_detail[2].src = "images/sensitivity_detail_bass.jpg";
+sensitivity_detail[3] = new Image();
+sensitivity_detail[3].src = "images/sensitivity_detail_midrange.jpg";
+sensitivity_detail[4] = new Image();
+sensitivity_detail[4].src = "images/sensitivity_detail_hi_mids.jpg";
+sensitivity_detail[5] = new Image();
+sensitivity_detail[5].src = "images/sensitivity_detail_hi_freqs.jpg";
+
+
+//*******************************************
+//*******   TOGGLE CAPTION DISPLAY   ********
+//*******************************************
+//Toggle caption display pages upon mouse click
+
+var captionflag = "0";
+
+function toggle_caption()
+{
+  //Don't run unless page is ready
+  if (window.loaded != true) return;
+  
+  //Toggle caption flag
+  if (captionflag == "0") {
+     captionflag = "1";
+  }else{
+     captionflag = "0";
+  }     
+
+  //Disply toggled image
+  document.captioncell.src = sensitivity_caption[captionflag].src;
+
+}
+
+
+//*******************************************
+//******   DISPLAY DETAIL MOUSEOVERS   ******
+//*******************************************
+//Display frequency range descriptions on chart mouseovers
+//and reset descriptions display on mouse offs
+
+function display_detail(imagenum)
+{
+  //Don't run unless page is ready
+  if (window.loaded != true) return;
+  
+  //Display/reset detail data
+  document.detailcell.src = sensitivity_detail[imagenum].src;
+}
+
+
+//-->
+</script>
+
+<div align="left">
+  <table border="0" cellpadding="0" cellspacing="0" width="640" height="600">
+    <tbody><tr>
+      <td valign="top" align="left" width="375" height="100"><map name="map_caption">
+        <area shape="rect" coords="327, 83, 370, 97" href="javascript:toggle_caption()"></map><img name="captioncell" border="0" src="images/sensitivity_caption_1.jpg" usemap="#map_caption" width="375" height="100"></td>
+      <td valign="top" align="left" width="265" height="100"><img name="detailcell" border="0" src="images/sensitivity_detail_blank.jpg" width="265" height="100"></td>
+    </tr>
+    <tr>
+      <td colspan="2" valign="top" align="left" width="640" height="600"><map name="map_detail">
+        <area nohref="" shape="rect" coords="29, 8, 146, 499" onmouseover="display_detail(1)" onmouseout="display_detail(0)">
+        <area nohref="" shape="rect" coords="146, 8, 262, 499" onmouseover="display_detail(2)" onmouseout="display_detail(0)">
+        <area nohref="" shape="rect" coords="262, 8, 435, 499" onmouseover="display_detail(3)" onmouseout="display_detail(0)">
+        <area nohref="" shape="rect" coords="435, 8, 525, 499" onmouseover="display_detail(4)" onmouseout="display_detail(0)">
+        <area nohref="" shape="rect" coords="525, 8, 637, 499" onmouseover="display_detail(5)" onmouseout="display_detail(0)"></map><img border="0" src="images/sensitivity_main_chart.jpg" usemap="#map_detail" width="640" height="500"></td>
+    </tr>
+  </tbody></table>
+</div>
+
+
+
+
+
+</body></html>
+<!--
+     FILE ARCHIVED ON 05:13:18 Dec 18, 2022 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 04:11:49 Feb 26, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 0.461
+  exclusion.robots: 0.021
+  exclusion.robots.policy: 0.012
+  esindex: 0.01
+  cdx.remote: 32.563
+  LoadShardBlock: 179.568 (3)
+  PetaboxLoader3.datanode: 194.504 (4)
+  load_resource: 103.521
+  PetaboxLoader3.resolve: 49.232
+-->
